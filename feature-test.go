@@ -14,17 +14,17 @@ func main() {
 
 	resultado := num1 + num2
 	resultado1 := num1 - num2
-	resultado2 := num1 * num2
 	resultado3 := num1 / num2
+	resultado2 := num1 * num2
 
 	conver := strconv.Itoa(resultado)
 	conver1 := strconv.Itoa(resultado1)
-	conver2 := strconv.Itoa(resultado2)
 	conver3 := strconv.Itoa(resultado3)
+	conver2 := strconv.Itoa(resultado2)
 
 	fmt.Println("La suma es: " + conver)
 	fmt.Println("La resta es: " + conver1)
-	fmt.Println("La multiplicacion es: " + conver2)
 	fmt.Println("La division es: " + conver3)
+	fmt.Println("La multiplicacion es: " + conver2)
 
 }
