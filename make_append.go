@@ -1,12 +1,14 @@
-package main 
+package main
 
 import "fmt"
 
-func main()  {
+func main() {
 
-	slice := make([]int,3,5)	//Make permite agregar un parametro despues de declarar el tipo de dato es la cantidad, segundo parametro es la capacidad
-	slice = append(slice, 5)	//Append permite ingresar mas valores al slice ya declarado
-
+	slice := make([]int, 3, 5) //Make permite agregar un parametro despues de declarar el tipo de dato es la cantidad, segundo parametro es la capacidad
+	slice = append(slice, 5)   //Append permite ingresar mas valores al slice ya declarado
+	fmt.Println("Slice: ,", slice)
+	fmt.Println("Longitud: ", len(slice))
+	fmt.Println("Capacidad, ", cap(slice))
 	fmt.Println(slice)
-	
+
 }
