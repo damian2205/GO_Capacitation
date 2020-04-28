@@ -1,0 +1,1079 @@
+iniciar instancia de MARIADB
+>>sudo docker pull mysql:latest
+
+crear un contenedor
+>>sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+
+iniciar contenedor
+>>sudo docker container start 
+
+revisar los servicios de cada puerto
+>>sudo netstat -plnut
+
+matar servicios de dicho puerto
+>>sudo kill -9 `sudo lsof -t -i:9001`
+>>sudo kill -9 $(sudo lsof -t -i:9001)
+>>sudo netstat -pna | grep 3000
+>>sudo apt install net-tools
+>>sudo netstat -laputen | grep ':3306 *LISTEN'
+
+
+>>systemctl list-unit-files --type service -all
+>>pkill mysqld
+
+
+[[constraint]] name = "github.com/gin-gonic/gin" version = "~1.4.0"
+-Para la libreria gin
+
+TERMINAL
+
+sudo service docker status
+[sudo] contraseña para damian: 
+Unit docker.service could not be found.
+damian@damian-Lenovo-G40-80:~$ sudo apt install apt-transport-https ca-certificates curl software-properties-common
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+ca-certificates ya está en su versión más reciente (20180409).
+fijado ca-certificates como instalado manualmente.
+software-properties-common ya está en su versión más reciente (0.96.24.32.12).
+fijado software-properties-common como instalado manualmente.
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  gdal-data libaec0 libarmadillo8 libarpack2 libblas3 libctemplate3 libdap25
+  libdapclient6v5 libepsilon1 libfreexl1 libfwup1 libfyba0 libgdal20
+  libgeos-3.6.2 libgeos-c1v5 libgeotiff2 libgfortran4 libgif7 libgtkmm-2.4-1v5
+  libhdf4-0-alt libhdf5-100 libkmlbase1 libkmldom1 libkmlengine1 liblapack3
+  libminizip1 libmysqlclient20 libmysqlcppconn7v5 libnetcdf13 libodbc1
+  libogdi3.2 libpq5 libproj12 libpython-stdlib libqhull7 libspatialite7
+  libsuperlu5 libsz2 libtinyxml2.6.2v5 liburiparser1 libvsqlitepp3v5
+  libwayland-egl1-mesa libxerces-c3.2 mysql-utilities mysql-workbench-data
+  odbcinst odbcinst1debian2 proj-bin proj-data python python-asn1crypto
+  python-cffi-backend python-cryptography python-enum34 python-idna
+  python-ipaddress python-minimal python-mysql.connector python-paramiko
+  python-pexpect python-ptyprocess python-pyasn1 python-pyodbc
+  python-pysqlite2 python-six python2.7 python2.7-minimal
+Utilice «sudo apt autoremove» para eliminarlos.
+Se instalarán los siguientes paquetes adicionales:
+  libcurl4
+Se instalarán los siguientes paquetes NUEVOS:
+  apt-transport-https curl libcurl4
+0 actualizados, 3 nuevos se instalarán, 0 para eliminar y 24 no actualizados.
+Se necesita descargar 375 kB de archivos.
+Se utilizarán 1.191 kB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] S
+Des:1 http://co.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 apt-transport-https all 1.6.12 [1.692 B]
+Des:2 http://co.archive.ubuntu.com/ubuntu bionic-updates/main amd64 libcurl4 amd64 7.58.0-2ubuntu3.8 [214 kB]
+Des:3 http://co.archive.ubuntu.com/ubuntu bionic-updates/main amd64 curl amd64 7.58.0-2ubuntu3.8 [159 kB]
+Descargados 375 kB en 1s (418 kB/s)
+Seleccionando el paquete apt-transport-https previamente no seleccionado.
+(Leyendo la base de datos ... 186012 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../apt-transport-https_1.6.12_all.deb ...
+Desempaquetando apt-transport-https (1.6.12) ...
+Seleccionando el paquete libcurl4:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libcurl4_7.58.0-2ubuntu3.8_amd64.deb ...
+Desempaquetando libcurl4:amd64 (7.58.0-2ubuntu3.8) ...
+Seleccionando el paquete curl previamente no seleccionado.
+Preparando para desempaquetar .../curl_7.58.0-2ubuntu3.8_amd64.deb ...
+Desempaquetando curl (7.58.0-2ubuntu3.8) ...
+Configurando apt-transport-https (1.6.12) ...
+Configurando libcurl4:amd64 (7.58.0-2ubuntu3.8) ...
+Configurando curl (7.58.0-2ubuntu3.8) ...
+Procesando disparadores para man-db (2.8.3-2ubuntu0.1) ...
+Procesando disparadores para libc-bin (2.27-3ubuntu1) ...
+damian@damian-Lenovo-G40-80:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+OK
+damian@damian-Lenovo-G40-80:~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+Obj:1 http://co.archive.ubuntu.com/ubuntu bionic InRelease
+Des:2 http://co.archive.ubuntu.com/ubuntu bionic-updates InRelease [88,7 kB]
+Des:3 http://co.archive.ubuntu.com/ubuntu bionic-backports InRelease [74,6 kB]
+Des:4 http://co.archive.ubuntu.com/ubuntu bionic-updates/main i386 Packages [669 kB]
+Des:5 http://co.archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [915 kB]
+Des:6 http://co.archive.ubuntu.com/ubuntu bionic-updates/main amd64 DEP-11 Metadata [301 kB]
+Des:7 http://co.archive.ubuntu.com/ubuntu bionic-updates/universe i386 Packages [1.014 kB]
+Des:8 http://co.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [1.065 kB]
+Des:9 http://co.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 DEP-11 Metadata [273 kB]
+Des:10 http://co.archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 DEP-11 Metadata [2.468 B]
+Des:11 http://co.archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [7.060 B]
+Des:12 http://co.archive.ubuntu.com/ubuntu bionic-backports/universe i386 Packages [7.048 B]
+Des:13 http://co.archive.ubuntu.com/ubuntu bionic-backports/universe amd64 DEP-11 Metadata [7.968 B]
+Ign:14 http://dl.google.com/linux/chrome/deb stable InRelease                  
+Des:15 http://security.ubuntu.com/ubuntu bionic-security InRelease [88,7 kB]   
+Obj:16 http://dl.google.com/linux/chrome/deb stable Release                    
+Des:17 https://download.docker.com/linux/ubuntu bionic InRelease [64,4 kB]     
+Des:19 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages [11,0 kB]
+Des:20 http://security.ubuntu.com/ubuntu bionic-security/main i386 Packages [459 kB]
+Des:21 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [692 kB]
+Des:22 http://security.ubuntu.com/ubuntu bionic-security/main amd64 DEP-11 Metadata [38,7 kB]
+Des:23 http://security.ubuntu.com/ubuntu bionic-security/universe i386 Packages [618 kB]
+Des:24 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [657 kB]
+Des:25 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 DEP-11 Metadata [42,1 kB]
+Des:26 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 DEP-11 Metadata [2.464 B]
+Descargados 7.099 kB en 13s (527 kB/s)                                         
+Leyendo lista de paquetes... Hecho
+damian@damian-Lenovo-G40-80:~$ sudo apt update
+Obj:1 http://co.archive.ubuntu.com/ubuntu bionic InRelease
+Obj:2 http://co.archive.ubuntu.com/ubuntu bionic-updates InRelease
+Obj:3 http://co.archive.ubuntu.com/ubuntu bionic-backports InRelease
+Ign:4 http://dl.google.com/linux/chrome/deb stable InRelease                   
+Obj:5 https://download.docker.com/linux/ubuntu bionic InRelease                
+Obj:6 http://dl.google.com/linux/chrome/deb stable Release                     
+Err:8 http://security.ubuntu.com/ubuntu bionic-security InRelease              
+  No se pudo resolver «security.ubuntu.com»
+Leyendo lista de paquetes... Hecho   
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Se pueden actualizar 28 paquetes. Ejecute «apt list --upgradable» para verlos.
+W: Fallo al obtener http://security.ubuntu.com/ubuntu/dists/bionic-security/InRelease  No se pudo resolver «security.ubuntu.com»
+W: No se han podido descargar algunos archivos de índice, se han omitido, o se han utilizado unos antiguos en su lugar.
+damian@damian-Lenovo-G40-80:~$ sudo apt update
+Obj:1 http://co.archive.ubuntu.com/ubuntu bionic InRelease                     
+Obj:2 http://co.archive.ubuntu.com/ubuntu bionic-updates InRelease             
+Obj:3 http://co.archive.ubuntu.com/ubuntu bionic-backports InRelease           
+Ign:4 http://dl.google.com/linux/chrome/deb stable InRelease                   
+Obj:5 http://dl.google.com/linux/chrome/deb stable Release                     
+Obj:7 http://security.ubuntu.com/ubuntu bionic-security InRelease              
+Obj:8 https://download.docker.com/linux/ubuntu bionic InRelease 
+Leyendo lista de paquetes... Hecho   
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Se pueden actualizar 28 paquetes. Ejecute «apt list --upgradable» para verlos.
+damian@damian-Lenovo-G40-80:~$ apt-cache policy docker-ce
+docker-ce:
+  Instalados: (ninguno)
+  Candidato:  5:19.03.8~3-0~ubuntu-bionic
+  Tabla de versión:
+     5:19.03.8~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.7~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.6~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.5~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.4~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.3~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.2~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.1~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:19.03.0~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.9~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.8~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.7~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.6~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.5~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.4~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.3~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.2~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.1~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     5:18.09.0~3-0~ubuntu-bionic 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     18.06.3~ce~3-0~ubuntu 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     18.06.2~ce~3-0~ubuntu 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     18.06.1~ce~3-0~ubuntu 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     18.06.0~ce~3-0~ubuntu 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+     18.03.1~ce~3-0~ubuntu 500
+        500 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+damian@damian-Lenovo-G40-80:~$ sudo apt install docker-ce
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  gdal-data libaec0 libarmadillo8 libarpack2 libblas3 libctemplate3 libdap25
+  libdapclient6v5 libepsilon1 libfreexl1 libfwup1 libfyba0 libgdal20
+  libgeos-3.6.2 libgeos-c1v5 libgeotiff2 libgfortran4 libgif7 libgtkmm-2.4-1v5
+  libhdf4-0-alt libhdf5-100 libkmlbase1 libkmldom1 libkmlengine1 liblapack3
+  libminizip1 libmysqlclient20 libmysqlcppconn7v5 libnetcdf13 libodbc1
+  libogdi3.2 libpq5 libproj12 libpython-stdlib libqhull7 libspatialite7
+  libsuperlu5 libsz2 libtinyxml2.6.2v5 liburiparser1 libvsqlitepp3v5
+  libwayland-egl1-mesa libxerces-c3.2 mysql-utilities mysql-workbench-data
+  odbcinst odbcinst1debian2 proj-bin proj-data python python-asn1crypto
+  python-cffi-backend python-cryptography python-enum34 python-idna
+  python-ipaddress python-minimal python-mysql.connector python-paramiko
+  python-pexpect python-ptyprocess python-pyasn1 python-pyodbc
+  python-pysqlite2 python-six python2.7 python2.7-minimal
+Utilice «sudo apt autoremove» para eliminarlos.
+Se instalarán los siguientes paquetes adicionales:
+  aufs-tools cgroupfs-mount containerd.io docker-ce-cli pigz
+Se instalarán los siguientes paquetes NUEVOS:
+  aufs-tools cgroupfs-mount containerd.io docker-ce docker-ce-cli pigz
+0 actualizados, 6 nuevos se instalarán, 0 para eliminar y 28 no actualizados.
+Se necesita descargar 85,7 MB de archivos.
+Se utilizarán 385 MB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] S
+Des:1 http://co.archive.ubuntu.com/ubuntu bionic/universe amd64 pigz amd64 2.4-1 [57,4 kB]
+Des:2 https://download.docker.com/linux/ubuntu bionic/stable amd64 containerd.io amd64 1.2.13-1 [20,1 MB]
+Des:3 http://co.archive.ubuntu.com/ubuntu bionic/universe amd64 aufs-tools amd64 1:4.9+20170918-1ubuntu1 [104 kB]
+Des:4 http://co.archive.ubuntu.com/ubuntu bionic/universe amd64 cgroupfs-mount all 1.4 [6.320 B]
+Des:5 https://download.docker.com/linux/ubuntu bionic/stable amd64 docker-ce-cli amd64 5:19.03.8~3-0~ubuntu-bionic [42,6 MB]
+Des:6 https://download.docker.com/linux/ubuntu bionic/stable amd64 docker-ce amd64 5:19.03.8~3-0~ubuntu-bionic [22,9 MB]
+Descargados 85,7 MB en 33s (2.580 kB/s)                                        
+Seleccionando el paquete pigz previamente no seleccionado.
+(Leyendo la base de datos ... 186029 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../0-pigz_2.4-1_amd64.deb ...
+Desempaquetando pigz (2.4-1) ...
+Seleccionando el paquete aufs-tools previamente no seleccionado.
+Preparando para desempaquetar .../1-aufs-tools_1%3a4.9+20170918-1ubuntu1_amd64.deb ...
+Desempaquetando aufs-tools (1:4.9+20170918-1ubuntu1) ...
+Seleccionando el paquete cgroupfs-mount previamente no seleccionado.
+Preparando para desempaquetar .../2-cgroupfs-mount_1.4_all.deb ...
+Desempaquetando cgroupfs-mount (1.4) ...
+Seleccionando el paquete containerd.io previamente no seleccionado.
+Preparando para desempaquetar .../3-containerd.io_1.2.13-1_amd64.deb ...
+Desempaquetando containerd.io (1.2.13-1) ...
+Seleccionando el paquete docker-ce-cli previamente no seleccionado.
+Preparando para desempaquetar .../4-docker-ce-cli_5%3a19.03.8~3-0~ubuntu-bionic_amd64.deb ...
+Desempaquetando docker-ce-cli (5:19.03.8~3-0~ubuntu-bionic) ...
+Seleccionando el paquete docker-ce previamente no seleccionado.
+Preparando para desempaquetar .../5-docker-ce_5%3a19.03.8~3-0~ubuntu-bionic_amd64.deb ...
+Desempaquetando docker-ce (5:19.03.8~3-0~ubuntu-bionic) ...
+Configurando aufs-tools (1:4.9+20170918-1ubuntu1) ...
+Configurando containerd.io (1.2.13-1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+Configurando cgroupfs-mount (1.4) ...
+Configurando docker-ce-cli (5:19.03.8~3-0~ubuntu-bionic) ...
+Configurando pigz (2.4-1) ...
+Configurando docker-ce (5:19.03.8~3-0~ubuntu-bionic) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+Procesando disparadores para libc-bin (2.27-3ubuntu1) ...
+Procesando disparadores para systemd (237-3ubuntu10.39) ...
+Procesando disparadores para man-db (2.8.3-2ubuntu0.1) ...
+Procesando disparadores para ureadahead (0.100.0-21) ...
+ureadahead will be reprofiled on next reboot
+damian@damian-Lenovo-G40-80:~$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: e
+   Active: active (running) since Mon 2020-04-27 10:44:33 -05; 19s ago
+     Docs: https://docs.docker.com
+ Main PID: 14963 (dockerd)
+    Tasks: 12
+   CGroup: /system.slice/docker.service
+           └─14963 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/contai
+
+abr 27 10:44:31 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:31.5
+abr 27 10:44:31 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:31.5
+abr 27 10:44:31 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:31.5
+abr 27 10:44:31 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:31.5
+abr 27 10:44:32 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:32.1
+abr 27 10:44:32 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:32.4
+abr 27 10:44:32 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:32.8
+abr 27 10:44:32 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:32.8
+abr 27 10:44:33 damian-Lenovo-G40-80 systemd[1]: Started Docker Application Cont
+abr 27 10:44:33 damian-Lenovo-G40-80 dockerd[14963]: time="2020-04-27T10:44:33.1
+lines 1-19/19 (END)
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+damian@damian-Lenovo-G40-80:~$ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=ContraseñaParaSA' -p 1401:1433 -d mcr.microsoft.com/mssql/server:2017-latest docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ docker pull mysql:latest
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/images/create?fromImage=mysql&tag=latest: dial unix /var/run/docker.sock: connect: permission denied
+damian@damian-Lenovo-G40-80:~$ sudo docker pull mysql:latest
+latest: Pulling from library/mysql
+54fec2fa59d0: Pull complete 
+bcc6c6145912: Pull complete 
+951c3d959c9d: Pull complete 
+05de4d0e206e: Pull complete 
+319f0394ef42: Pull complete 
+d9185034607b: Pull complete 
+013a9c64dadc: Pull complete 
+96d4c3d31f9f: Pull complete 
+785bc90808da: Pull complete 
+1339cf094729: Pull complete 
+beb8f531cc37: Pull complete 
+2b40c9f6a918: Pull complete 
+Digest: sha256:9643e9fbd6330d10686f8922292dcb20995e7b792c17d4e94ddf95255f1d5449
+Status: Downloaded newer image for mysql:latest
+docker.io/library/mysql:latest
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+6ccd49139afadce5de5aad061ee4d05a4afd55d94f3baff3db3bb13a57e80a20
+docker: Error response from daemon: driver failed programming external connectivity on endpoint mysqlname (0f3f48c2dab490d00a59819d6c92a26d20045319f00b74cc1364fa9873edd07c): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use.
+damian@damian-Lenovo-G40-80:~$ docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/create?name=mysqlname: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/create?name=mysqlname: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest 
+docker: Error response from daemon: Conflict. The container name "/mysqlname" is already in use by container "6ccd49139afadce5de5aad061ee4d05a4afd55d94f3baff3db3bb13a57e80a20". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS               NAMES
+6ccd49139afa        mysql:latest        "docker-entrypoint.s…"   About a minute ago   Created                                 mysqlname
+damian@damian-Lenovo-G40-80:~$ sudo docker container start 6ccd49139afa
+Error response from daemon: driver failed programming external connectivity on endpoint mysqlname (867ec61abe1a2f4836c03774df5d55365995b227700838e8895a56d69c8017c6): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use
+Error: failed to start containers: 6ccd49139afa
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+6ccd49139afa        mysql:latest        "docker-entrypoint.s…"   6 minutes ago       Created                                 mysqlname
+damian@damian-Lenovo-G40-80:~$ sudo docker rm 6ccd49139afa
+6ccd49139afa
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+5bc9c2ff4743cb2167f8371a664f6463f0b4069e633dfd8fba6b29ee9ac7ffb5
+docker: Error response from daemon: driver failed programming external connectivity on endpoint mysqlname (64bd54a8afacf7bcebb7b4423d8b26e3125aaa6f7f3c7dc6f81c0feea06358c8): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use.
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Error response from daemon: Conflict. The container name "/mysqlname" is already in use by container "5bc9c2ff4743cb2167f8371a664f6463f0b4069e633dfd8fba6b29ee9ac7ffb5". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+5bc9c2ff4743        mysql:latest        "docker-entrypoint.s…"   53 seconds ago      Created                                 mysqlname
+damian@damian-Lenovo-G40-80:~$ sudo docker rm 5bc9c2ff4743
+5bc9c2ff4743
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+beb49b9ed8c68d1230031ce59f052dfb4d4223658cf2366c26d3f2cdff13bbe1
+docker: Error response from daemon: driver failed programming external connectivity on endpoint mysqlname (3c8bf392fa15b766cf07310a0cef52eff60fabf525b92f6fb8e72d34f77ae5e7): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use.
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Error response from daemon: Conflict. The container name "/mysqlname" is already in use by container "beb49b9ed8c68d1230031ce59f052dfb4d4223658cf2366c26d3f2cdff13bbe1". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ sudo docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete 
+Digest: sha256:8e3114318a995a1ee497790535e7b88365222a21771ae7e53687ad76563e8e76
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Error response from daemon: Conflict. The container name "/mysqlname" is already in use by container "beb49b9ed8c68d1230031ce59f052dfb4d4223658cf2366c26d3f2cdff13bbe1". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                          PORTS               NAMES
+81a84c764d1a        hello-world         "/hello"                 About a minute ago   Exited (0) About a minute ago                       crazy_archimedes
+beb49b9ed8c6        mysql:latest        "docker-entrypoint.s…"   5 minutes ago        Created                                             mysqlname
+damian@damian-Lenovo-G40-80:~$ sudo docker rm beb49b9ed8c6
+beb49b9ed8c6
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+81a84c764d1a        hello-world         "/hello"            2 minutes ago       Exited (0) 2 minutes ago                       crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+d1ab223d1b5c9cb445d54848db87c5a078dce2ed2061c2825b4001f558412ce4
+docker: Error response from daemon: driver failed programming external connectivity on endpoint service-mysql (027ab10d6419deb0e9efc0a46d09f354a65b7c18887865c10e6ef50075ed6a8a): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use.
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Error response from daemon: Conflict. The container name "/service-mysql" is already in use by container "d1ab223d1b5c9cb445d54848db87c5a078dce2ed2061c2825b4001f558412ce4". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Error response from daemon: Conflict. The container name "/service-mysql" is already in use by container "d1ab223d1b5c9cb445d54848db87c5a078dce2ed2061c2825b4001f558412ce4". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                     PORTS               NAMES
+d1ab223d1b5c        mysql:latest        "docker-entrypoint.s…"   About a minute ago   Created                                        service-mysql
+81a84c764d1a        hello-world         "/hello"                 4 minutes ago        Exited (0) 4 minutes ago                       crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker rm CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                     PORTS               NAMES
+Error: No such container: CONTAINER
+Error: No such container: ID
+Error: No such container: IMAGE
+Error: No such container: COMMAND
+Error: No such container: CREATED
+Error: No such container: STATUS
+Error: No such container: PORTS
+Error: No such container: NAMES
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS                     PORTS               NAMES
+d1ab223d1b5c        mysql:latest        "docker-entrypoint.s…"   About a minute ago   Created                                        service-mysql
+81a84c764d1a        hello-world         "/hello"                 4 minutes ago        Exited (0) 4 minutes ago                       crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker rm d1ab223d1b5c
+d1ab223d1b5c
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+662be823480db16704ce8551d22b6d62f5e34e44e37ce4ebd7f0813683a2be60
+docker: Error response from daemon: driver failed programming external connectivity on endpoint service-mysql (c280f2e860b0c411f9aff5fa51cc2aba04148c6a1c18e5fa64944d63fcc74502): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use.
+damian@damian-Lenovo-G40-80:~$ netstat-lt
+netstat-lt: orden no encontrada
+damian@damian-Lenovo-G40-80:~$ sudo netstat -plnut
+Conexiones activas de Internet (solo servidores)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    1103/mysqld         
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+udp        0      0 0.0.0.0:46229           0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           877/systemd-resolve 
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           9776/dhclient       
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1158/dhclient       
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           7472/cups-browsed   
+udp        0      0 192.168.1.60:59010      0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 192.168.1.55:42754      0.0.0.0:*                           3593/chrome --type= 
+udp6       0      0 :::42946                :::*                                950/avahi-daemon: r 
+udp6       0      0 :::5353                 :::*                                950/avahi-daemon: r 
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+662be823480d        mysql:latest        "docker-entrypoint.s…"   4 minutes ago       Created                                         service-mysql
+81a84c764d1a        hello-world         "/hello"                 10 minutes ago      Exited (0) 10 minutes ago                       crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker rm 662be823480d
+662be823480d
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+81a84c764d1a        hello-world         "/hello"            10 minutes ago      Exited (0) 10 minutes ago                       crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p mysql:latest
+"docker run" requires at least 1 argument.
+See 'docker run --help'.
+
+Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container
+damian@damian-Lenovo-G40-80:~$ sudo netstat -plnut
+Conexiones activas de Internet (solo servidores)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    1103/mysqld         
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+udp        0      0 0.0.0.0:46229           0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           877/systemd-resolve 
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           9776/dhclient       
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1158/dhclient       
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           7472/cups-browsed   
+udp        0      0 192.168.1.60:59010      0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 192.168.1.55:42754      0.0.0.0:*                           3593/chrome --type= 
+udp6       0      0 :::42946                :::*                                950/avahi-daemon: r 
+udp6       0      0 :::5353                 :::*                                950/avahi-daemon: r 
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 8080:8080 mysql:latest
+60da598e913210109720f9590bfdc5e8ab0908f851ae25b8e07ce5a86478bed2
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                                         NAMES
+60da598e9132        mysql:latest        "docker-entrypoint.s…"   6 seconds ago       Up 3 seconds                3306/tcp, 33060/tcp, 0.0.0.0:8080->8080/tcp   service-mysql
+81a84c764d1a        hello-world         "/hello"                 17 minutes ago      Exited (0) 17 minutes ago                                                 crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker rm 60da598e9132
+Error response from daemon: You cannot remove a running container 60da598e913210109720f9590bfdc5e8ab0908f851ae25b8e07ce5a86478bed2. Stop the container before attempting removal or force remove
+damian@damian-Lenovo-G40-80:~$ sudo docker rm 60da598e9132
+Error response from daemon: You cannot remove a running container 60da598e913210109720f9590bfdc5e8ab0908f851ae25b8e07ce5a86478bed2. Stop the container before attempting removal or force remove
+damian@damian-Lenovo-G40-80:~$ sudo kill -9 `sudo lsof -t -i:9001
+> '
+> ^C
+damian@damian-Lenovo-G40-80:~$ sudo kill -9 `sudo lsof -t -i:3306`
+damian@damian-Lenovo-G40-80:~$ sudo netstat -plnut
+Conexiones activas de Internet (solo servidores)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20248/mysqld        
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp6       0      0 :::8080                 :::*                    ESCUCHAR    19711/docker-proxy  
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+udp        0      0 0.0.0.0:46229           0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           877/systemd-resolve 
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           9776/dhclient       
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1158/dhclient       
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           7472/cups-browsed   
+udp        0      0 192.168.1.60:59010      0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 192.168.1.55:42754      0.0.0.0:*                           3593/chrome --type= 
+udp6       0      0 :::42946                :::*                                950/avahi-daemon: r 
+udp6       0      0 :::5353                 :::*                                950/avahi-daemon: r 
+damian@damian-Lenovo-G40-80:~$ sudo kill -9 $(sudo lsof -t -i:3306)
+damian@damian-Lenovo-G40-80:~$ sudo netstat -plnut
+Conexiones activas de Internet (solo servidores)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20341/mysqld        
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp6       0      0 :::8080                 :::*                    ESCUCHAR    19711/docker-proxy  
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+udp        0      0 0.0.0.0:46229           0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           877/systemd-resolve 
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           9776/dhclient       
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1158/dhclient       
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           7472/cups-browsed   
+udp        0      0 192.168.1.60:59010      0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 192.168.1.55:42754      0.0.0.0:*                           3593/chrome --type= 
+udp6       0      0 :::42946                :::*                                950/avahi-daemon: r 
+udp6       0      0 :::5353                 :::*                                950/avahi-daemon: r 
+damian@damian-Lenovo-G40-80:~$ sudo kill -9 `sudo lsof -t -i:3306`
+damian@damian-Lenovo-G40-80:~$ sudo netstat -plnut
+Conexiones activas de Internet (solo servidores)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20456/mysqld        
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp6       0      0 :::8080                 :::*                    ESCUCHAR    19711/docker-proxy  
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+udp        0      0 0.0.0.0:46229           0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           877/systemd-resolve 
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           9776/dhclient       
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1158/dhclient       
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           7472/cups-browsed   
+udp        0      0 192.168.1.60:59010      0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 192.168.1.55:42754      0.0.0.0:*                           3593/chrome --type= 
+udp6       0      0 :::42946                :::*                                950/avahi-daemon: r 
+udp6       0      0 :::5353                 :::*                                950/avahi-daemon: r 
+damian@damian-Lenovo-G40-80:~$ sudo kill -9 $(sudo lsof -t -i:3306)
+damian@damian-Lenovo-G40-80:~$ sudo netstat -plnut
+Conexiones activas de Internet (solo servidores)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20537/mysqld        
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp6       0      0 :::8080                 :::*                    ESCUCHAR    19711/docker-proxy  
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+udp        0      0 0.0.0.0:46229           0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3556/chrome         
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           950/avahi-daemon: r 
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           877/systemd-resolve 
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           9776/dhclient       
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           1158/dhclient       
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           7472/cups-browsed   
+udp        0      0 192.168.1.60:59010      0.0.0.0:*                           3593/chrome --type= 
+udp        0      0 192.168.1.55:42754      0.0.0.0:*                           3593/chrome --type= 
+udp6       0      0 :::42946                :::*                                950/avahi-daemon: r 
+udp6       0      0 :::5353                 :::*                                950/avahi-daemon: r 
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                                         NAMES
+60da598e9132        mysql:latest        "docker-entrypoint.s…"   11 minutes ago      Up 11 minutes               3306/tcp, 33060/tcp, 0.0.0.0:8080->8080/tcp   service-mysql
+81a84c764d1a        hello-world         "/hello"                 28 minutes ago      Exited (0) 28 minutes ago                                                 crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker rm 60da598e9132
+Error response from daemon: You cannot remove a running container 60da598e913210109720f9590bfdc5e8ab0908f851ae25b8e07ce5a86478bed2. Stop the container before attempting removal or force remove
+damian@damian-Lenovo-G40-80:~$ sudo docker stop 60da598e9132
+60da598e9132
+damian@damian-Lenovo-G40-80:~$ sudo docker rm 60da598e9132
+60da598e9132
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+81a84c764d1a        hello-world         "/hello"            30 minutes ago      Exited (0) 30 minutes ago                       crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+c9a5e2b1a90ba9b081c34f07c5e813274cdcb834134328321e72c02c2a59a138
+docker: Error response from daemon: driver failed programming external connectivity on endpoint service-mysql (ca223d8cc4ecf636de17d7521166544c14aa2e3fe38d6888e0b7704cb8c23dff): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use.
+damian@damian-Lenovo-G40-80:~$ sudo su
+root@damian-Lenovo-G40-80:/home/damian# sudo netstat -pna | grep 3306
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20537/mysqld        
+unix  3      [ ]         FLUJO      CONECTADO     33065    1078/gdm3            @/tmp/dbus-qRWlTQYq
+root@damian-Lenovo-G40-80:/home/damian# sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+docker: Error response from daemon: Conflict. The container name "/service-mysql" is already in use by container "c9a5e2b1a90ba9b081c34f07c5e813274cdcb834134328321e72c02c2a59a138". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+root@damian-Lenovo-G40-80:/home/damian# sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+c9a5e2b1a90b        mysql:latest        "docker-entrypoint.s…"   3 minutes ago       Created                                         service-mysql
+81a84c764d1a        hello-world         "/hello"                 34 minutes ago      Exited (0) 34 minutes ago                       crazy_archimedes
+root@damian-Lenovo-G40-80:/home/damian# sudo docker rm c9a5e2b1a90b
+c9a5e2b1a90b
+root@damian-Lenovo-G40-80:/home/damian# sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+81a84c764d1a        hello-world         "/hello"            34 minutes ago      Exited (0) 34 minutes ago                       crazy_archimedes
+root@damian-Lenovo-G40-80:/home/damian# sudo docker run --name service-mysql -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+973e81cf46839e25bdb2ee7095189a0895b517cb54015ea63952c319d0254105
+docker: Error response from daemon: driver failed programming external connectivity on endpoint service-mysql (a94568c99b1b0a0849e0cf947d40e6b1454e4ad16e4df4bac29a4bf6c2a641be): Error starting userland proxy: listen tcp 0.0.0.0:3306: bind: address already in use.
+root@damian-Lenovo-G40-80:/home/damian# sudo netstat -pna | grep 3306
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20537/mysqld        
+unix  3      [ ]         FLUJO      CONECTADO     33065    1078/gdm3            @/tmp/dbus-qRWlTQYq
+root@damian-Lenovo-G40-80:/home/damian# exit
+exit
+damian@damian-Lenovo-G40-80:~$ sudo netstat -laputen | grep ':3306 *LISTEN'
+damian@damian-Lenovo-G40-80:~$ sudo netstat -laputen | grep :3306 *LISTEN
+grep: *LISTEN: No existe el archivo o el directorio
+damian@damian-Lenovo-G40-80:~$ sudo netstat -laputen | grep (:3306 *LISTEN)
+bash: error sintáctico cerca del elemento inesperado `('
+damian@damian-Lenovo-G40-80:~$ sudo netstat -laputen | grep ':3306 *LISTEN'
+damian@damian-Lenovo-G40-80:~$ sudo netstat -pna | grep 3306
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20537/mysqld        
+unix  3      [ ]         FLUJO      CONECTADO     33065    1078/gdm3            @/tmp/dbus-qRWlTQYq
+damian@damian-Lenovo-G40-80:~$ systemctl list-unit-files --type service -all
+UNIT FILE                                  STATE          
+accounts-daemon.service                    enabled        
+acpid.service                              disabled       
+alsa-restore.service                       static         
+alsa-state.service                         static         
+alsa-utils.service                         masked         
+anacron.service                            enabled        
+apparmor.service                           enabled        
+apport-autoreport.service                  static         
+apport-forward@.service                    static         
+apport.service                             generated      
+apt-daily-upgrade.service                  static         
+apt-daily.service                          static         
+autovt@.service                            enabled        
+avahi-daemon.service                       enabled        
+bluetooth.service                          enabled        
+bolt.service                               static         
+bootlogd.service                           masked         
+bootlogs.service                           masked         
+bootmisc.service                           masked         
+brltty-udev.service                        static         
+brltty.service                             disabled       
+cgroupfs-mount.service                     masked         
+checkfs.service                            masked         
+checkroot-bootclean.service                masked         
+checkroot.service                          masked         
+clean-mount-point@.service                 static         
+colord.service                             static         
+configure-printer@.service                 static         
+console-getty.service                      disabled       
+console-setup.service                      enabled        
+container-getty@.service                   static         
+containerd.service                         enabled        
+cron.service                               enabled        
+cryptdisks-early.service                   masked         
+cryptdisks.service                         masked         
+cups-browsed.service                       enabled        
+cups.service                               enabled        
+dbus-fi.w1.wpa_supplicant1.service         enabled        
+dbus-org.bluez.service                     enabled        
+dbus-org.freedesktop.Avahi.service         enabled        
+dbus-org.freedesktop.hostname1.service     static         
+dbus-org.freedesktop.locale1.service       static         
+dbus-org.freedesktop.login1.service        static         
+dbus-org.freedesktop.ModemManager1.service enabled        
+dbus-org.freedesktop.nm-dispatcher.service enabled        
+dbus-org.freedesktop.resolve1.service      enabled        
+dbus-org.freedesktop.thermald.service      enabled        
+dbus-org.freedesktop.timedate1.service     static         
+dbus.service                               static         
+debug-shell.service                        disabled       
+display-manager.service                    static         
+dns-clean.service                          enabled        
+docker.service                             enabled        
+emergency.service                          static         
+friendly-recovery.service                  static         
+fstrim.service                             static         
+fuse.service                               masked         
+fwupd-offline-update.service               static         
+fwupd.service                              static         
+gdm.service                                static         
+gdm3.service                               static         
+geoclue.service                            static         
+getty-static.service                       static         
+getty@.service                             enabled        
+gpd.service                                enabled        
+gpu-manager.service                        enabled        
+grub-common.service                        generated      
+halt.service                               masked         
+hostname.service                           masked         
+hwclock.service                            masked         
+ifup@.service                              static         
+iio-sensor-proxy.service                   static         
+initrd-cleanup.service                     static         
+initrd-parse-etc.service                   static         
+initrd-switch-root.service                 static         
+initrd-udevadm-cleanup-db.service          static         
+irqbalance.service                         enabled        
+kerneloops.service                         enabled        
+keyboard-setup.service                     enabled        
+killprocs.service                          masked         
+kmod-static-nodes.service                  static         
+kmod.service                               static         
+ModemManager.service                       enabled        
+module-init-tools.service                  static         
+mongodb.service                            enabled        
+motd-news.service                          static         
+motd.service                               masked         
+mountall-bootclean.service                 masked         
+mountall.service                           masked         
+mountdevsubfs.service                      masked         
+mountkernfs.service                        masked         
+mountnfs-bootclean.service                 masked         
+mountnfs.service                           masked         
+mysql.service                              enabled        
+netplan-wpa@.service                       static         
+network-manager.service                    enabled        
+networkd-dispatcher.service                enabled        
+networking.service                         enabled        
+NetworkManager-dispatcher.service          enabled        
+NetworkManager-wait-online.service         enabled        
+NetworkManager.service                     enabled        
+ondemand.service                           enabled        
+packagekit-offline-update.service          static         
+packagekit.service                         static         
+plymouth-halt.service                      static         
+plymouth-kexec.service                     static         
+plymouth-log.service                       static         
+plymouth-poweroff.service                  static         
+plymouth-quit-wait.service                 static         
+plymouth-quit.service                      static         
+plymouth-read-write.service                static         
+plymouth-reboot.service                    static         
+plymouth-start.service                     static         
+plymouth-switch-root.service               static         
+plymouth.service                           static         
+polkit.service                             static         
+pppd-dns.service                           enabled        
+procps.service                             static         
+quotaon.service                            static         
+rc-local.service                           static         
+rc.local.service                           static         
+rc.service                                 masked         
+rcS.service                                masked         
+reboot.service                             masked         
+rescue.service                             static         
+rmnologin.service                          masked         
+rsync.service                              enabled        
+rsyslog.service                            enabled        
+rtkit-daemon.service                       disabled       
+saned.service                              masked         
+saned@.service                             indirect       
+sendsigs.service                           masked         
+serial-getty@.service                      disabled       
+setvtrgb.service                           enabled        
+single.service                             masked         
+snapd.autoimport.service                   enabled        
+snapd.core-fixup.service                   enabled        
+snapd.failure.service                      static         
+snapd.seeded.service                       enabled        
+snapd.service                              enabled        
+snapd.snap-repair.service                  static         
+snapd.system-shutdown.service              enabled        
+speech-dispatcher.service                  generated      
+spice-vdagent.service                      enabled        
+spice-vdagentd.service                     enabled        
+stop-bootlogd-single.service               masked         
+stop-bootlogd.service                      masked         
+sudo.service                               masked         
+syslog.service                             enabled        
+system-update-cleanup.service              static         
+systemd-ask-password-console.service       static         
+systemd-ask-password-plymouth.service      static         
+systemd-ask-password-wall.service          static         
+systemd-backlight@.service                 static         
+systemd-binfmt.service                     static         
+systemd-exit.service                       static         
+systemd-fsck-root.service                  enabled-runtime
+systemd-fsck@.service                      static         
+systemd-fsckd.service                      static         
+systemd-halt.service                       static         
+systemd-hibernate-resume@.service          static         
+systemd-hibernate.service                  static         
+systemd-hostnamed.service                  static         
+systemd-hwdb-update.service                static         
+systemd-hybrid-sleep.service               static         
+systemd-initctl.service                    static         
+systemd-journal-flush.service              static         
+systemd-journald.service                   static         
+systemd-kexec.service                      static         
+systemd-localed.service                    static         
+systemd-logind.service                     static         
+systemd-machine-id-commit.service          static         
+systemd-modules-load.service               static         
+systemd-networkd-wait-online.service       disabled       
+systemd-networkd.service                   disabled       
+systemd-poweroff.service                   static         
+systemd-quotacheck.service                 static         
+systemd-random-seed.service                static         
+systemd-reboot.service                     static         
+systemd-remount-fs.service                 static         
+systemd-resolved.service                   enabled        
+systemd-rfkill.service                     static         
+systemd-suspend-then-hibernate.service     static         
+systemd-suspend.service                    static         
+systemd-sysctl.service                     static         
+systemd-timedated.service                  static         
+systemd-timesyncd.service                  enabled        
+systemd-tmpfiles-clean.service             static         
+systemd-tmpfiles-setup-dev.service         static         
+systemd-tmpfiles-setup.service             static         
+systemd-udev-settle.service                static         
+systemd-udev-trigger.service               static         
+systemd-udevd.service                      static         
+systemd-update-utmp-runlevel.service       static         
+systemd-update-utmp.service                static         
+systemd-user-sessions.service              static         
+systemd-volatile-root.service              static         
+thermald.service                           enabled        
+udev.service                               static         
+udisks2.service                            enabled        
+ufw.service                                enabled        
+umountfs.service                           masked         
+umountnfs.service                          masked         
+umountroot.service                         masked         
+unattended-upgrades.service                enabled        
+upower.service                             disabled       
+urandom.service                            static         
+ureadahead-stop.service                    static         
+ureadahead.service                         enabled        
+usb_modeswitch@.service                    static         
+usbmuxd.service                            static         
+user@.service                              static         
+uuidd.service                              indirect       
+wacom-inputattach@.service                 static         
+whoopsie.service                           enabled        
+wpa_supplicant-wired@.service              disabled       
+wpa_supplicant.service                     enabled        
+wpa_supplicant@.service                    disabled       
+x11-common.service                         masked         
+
+219 unit files listed.
+lines 188-222/222 (END)
+damian@damian-Lenovo-G40-80:~$ sudo netstat -tanp
+Conexiones activas de Internet (servidores y establecidos)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               ESCUCHAR    20537/mysqld        
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp        0      0 192.168.1.66:53720      157.240.6.53:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.60:47528      140.82.114.26:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 127.0.0.1:34536         127.0.0.1:4767          ESTABLECIDO 1654/PanGPA         
+tcp        0      0 192.168.1.66:47602      35.174.127.31:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:33886      172.217.15.195:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 127.0.0.1:4767          127.0.0.1:34536         ESTABLECIDO 1006/PanGPS         
+tcp        0      0 192.168.1.60:47526      140.82.114.26:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:47596      35.174.127.31:443       ESTABLECIDO 3593/chrome --type= 
+tcp        1      1 192.168.1.66:49244      157.240.6.35:443        CERRANDO    -                   
+tcp        0      0 192.168.1.66:55416      172.217.172.14:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.55:40718      157.240.6.18:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:45026      172.217.28.110:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:39734      216.58.222.206:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:38776      74.125.141.188:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.60:60776      140.82.113.25:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:35842      172.217.30.202:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.55:43302      18.229.250.79:443       ESTABLECIDO 2999/slack --type=u 
+tcp        0      0 192.168.1.55:40714      157.240.6.18:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:55414      172.217.172.14:443      ESTABLECIDO 3593/chrome --type= 
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+damian@damian-Lenovo-G40-80:~$ sudo netstat -lsof
+Ip:
+    Forwarding: 1
+    1625716 total packets received
+    16 with invalid addresses
+    0 forwarded
+    0 incoming packets discarded
+    1618039 incoming packets delivered
+    1237233 requests sent out
+    21 outgoing packets dropped
+    961 dropped because of missing route
+Icmp:
+    558 ICMP messages received
+    2 input ICMP message failed
+    histograma de entrada ICMP:
+        destination unreachable: 558
+    1352 ICMP messages sent
+    0 ICMP messages failed
+    histograma de salida ICMP:
+        destination unreachable: 1352
+IcmpMsg:
+        InType3: 558
+        OutType3: 1352
+Tcp:
+    2172 active connection openings
+    416 passive connection openings
+    24 failed connection attempts
+    165 connection resets received
+    19 connections established
+    453890 segments received
+    261548 segments sent out
+    2855 segments retransmitted
+    21 bad segments received
+    1203 resets sent
+Udp:
+    1170573 packets received
+    1290 packets to unknown port received
+    0 packet receive errors
+    972676 packets sent
+    0 receive buffer errors
+    712 send buffer errors
+    IgnoredMulti: 585
+UdpLite:
+TcpExt:
+    1 packets pruned from receive queue because of socket buffer overrun
+    845 TCP sockets finished time wait in fast timer
+    626 delayed acks sent
+    Quick ack mode was activated 740 times
+    389081 packet headers predicted
+    13058 acknowledgments not containing data payload received
+    20668 predicted acknowledgments
+    TCPSackRecovery: 41
+    Detected reordering 64 times using SACK
+    Detected reordering 4 times using time stamp
+    8 congestion windows fully recovered without slow start
+    1 congestion windows partially recovered using Hoe heuristic
+    TCPDSACKUndo: 16
+    99 congestion windows recovered without slow start after partial ack
+    TCPLostRetransmit: 1325
+    61 fast retransmits
+    10 retransmits in slow start
+    TCPTimeouts: 2113
+    TCPLossProbes: 828
+    TCPLossProbeRecovery: 149
+    TCPSackRecoveryFail: 3
+    TCPBacklogCoalesce: 5583
+    TCPDSACKOldSent: 752
+    TCPDSACKOfoSent: 85
+    TCPDSACKRecv: 403
+    184 connections reset due to unexpected data
+    125 connections reset due to early user close
+    95 connections aborted due to timeout
+    6 times unable to send RST due to no memory
+    TCPSACKDiscard: 15
+    TCPDSACKIgnoredNoUndo: 173
+    TCPSpuriousRTOs: 12
+    TCPSackShifted: 3
+    TCPSackMerged: 8
+    TCPSackShiftFallback: 187
+    IPReversePathFilter: 5
+    TCPRcvCoalesce: 104633
+    TCPOFOQueue: 8750
+    TCPOFOMerge: 85
+    TCPChallengeACK: 21
+    TCPSYNChallenge: 21
+    TCPSpuriousRtxHostQueues: 141
+    TCPAutoCorking: 1026
+    TCPWantZeroWindowAdv: 2
+    TCPSynRetrans: 1368
+    TCPOrigDataSent: 40130
+    TCPHystartDelayDetect: 4
+    TCPHystartDelayCwnd: 223
+    TCPKeepAlive: 3604
+    TCPDelivered: 41969
+    TCPAckCompressed: 5951
+IpExt:
+    InMcastPkts: 3873
+    OutMcastPkts: 1643
+    InBcastPkts: 591
+    OutBcastPkts: 35
+    InOctets: 1523617032
+    OutOctets: 383146825
+    InMcastOctets: 317805
+    OutMcastOctets: 269362
+    InBcastOctets: 59653
+    OutBcastOctets: 1801
+    InNoECTPkts: 1635067
+damian@damian-Lenovo-G40-80:~$ pkill mysqld
+pkill: fallo al matar el pid 20537: Operación no permitida
+damian@damian-Lenovo-G40-80:~$ sudo pkill mysqld
+damian@damian-Lenovo-G40-80:~$ sudo netstat -tanp
+Conexiones activas de Internet (servidores y establecidos)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp        0      0 192.168.1.66:53720      157.240.6.53:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 127.0.0.1:34536         127.0.0.1:4767          ESTABLECIDO 1654/PanGPA         
+tcp        0      0 192.168.1.66:47602      35.174.127.31:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:60338      140.82.113.25:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 127.0.0.1:4767          127.0.0.1:34536         ESTABLECIDO 1006/PanGPS         
+tcp        0      0 192.168.1.66:45788      13.227.18.101:443       ESTABLECIDO 2999/slack --type=u 
+tcp        0      0 192.168.1.66:47596      35.174.127.31:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:55416      172.217.172.14:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.55:40718      157.240.6.18:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:54398      18.229.94.96:443        TIME_WAIT   -                   
+tcp        0      0 192.168.1.66:49294      157.240.6.35:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:45026      172.217.28.110:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:60336      140.82.113.25:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:39734      216.58.222.206:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:36270      104.91.133.85:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:38776      74.125.141.188:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:35842      172.217.30.202:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.55:43302      18.229.250.79:443       ESTABLECIDO 2999/slack --type=u 
+tcp        0      0 192.168.1.66:42908      13.227.18.21:443        ESTABLECIDO 2999/slack --type=u 
+tcp        0      0 192.168.1.55:40714      157.240.6.18:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:55414      172.217.172.14:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:60334      140.82.113.25:443       ESTABLECIDO 3593/chrome --type= 
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
+973e81cf4683        mysql:latest        "docker-entrypoint.s…"   16 minutes ago      Created                                         service-mysql
+81a84c764d1a        hello-world         "/hello"                 51 minutes ago      Exited (0) 51 minutes ago                       crazy_archimedes
+damian@damian-Lenovo-G40-80:~$ sudo docker container start 973e81cf4683 
+973e81cf4683
+damian@damian-Lenovo-G40-80:~$ sudo netstat -tanp
+Conexiones activas de Internet (servidores y establecidos)
+Proto  Recib Enviad Dirección local         Dirección remota       Estado       PID/Program name    
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               ESCUCHAR    1061/mongod         
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               ESCUCHAR    877/systemd-resolve 
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               ESCUCHAR    7469/cupsd          
+tcp        0      0 127.0.0.1:4767          0.0.0.0:*               ESCUCHAR    1006/PanGPS         
+tcp        0      0 192.168.1.66:53720      157.240.6.53:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 127.0.0.1:34536         127.0.0.1:4767          ESTABLECIDO 1654/PanGPA         
+tcp        0      0 192.168.1.66:47602      35.174.127.31:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:60338      140.82.113.25:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 127.0.0.1:4767          127.0.0.1:34536         ESTABLECIDO 1006/PanGPS         
+tcp        0      0 192.168.1.66:45788      13.227.18.101:443       TIME_WAIT   -                   
+tcp        0      0 192.168.1.66:55448      172.217.172.14:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:47596      35.174.127.31:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.55:40718      157.240.6.18:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:45026      172.217.28.110:443      TIME_WAIT   -                   
+tcp        0      0 192.168.1.66:55446      172.217.172.14:443      ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:60336      140.82.113.25:443       ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:39734      216.58.222.206:443      TIME_WAIT   -                   
+tcp        0      0 192.168.1.55:43302      18.229.250.79:443       ESTABLECIDO 2999/slack --type=u 
+tcp        0      0 192.168.1.66:42908      13.227.18.21:443        TIME_WAIT   -                   
+tcp        0      0 192.168.1.66:36636      172.217.204.188:5228    ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.55:40714      157.240.6.18:443        ESTABLECIDO 3593/chrome --type= 
+tcp        0      0 192.168.1.66:55414      172.217.172.14:443      TIME_WAIT   -                   
+tcp        0      0 192.168.1.66:60334      140.82.113.25:443       ESTABLECIDO 3593/chrome --type= 
+tcp6       0      0 :::3306                 :::*                    ESCUCHAR    21625/docker-proxy  
+tcp6       0      0 ::1:631                 :::*                    ESCUCHAR    7469/cupsd          
+damian@damian-Lenovo-G40-80:~$ sudo docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                               NAMES
+973e81cf4683        mysql:latest        "docker-entrypoint.s…"   17 minutes ago      Up 32 seconds               0.0.0.0:3306->3306/tcp, 33060/tcp   service-mysql
+81a84c764d1a        hello-world         "/hello"                 52 minutes ago      Exited (0) 52 minutes ago                                       crazy_archimedes
+

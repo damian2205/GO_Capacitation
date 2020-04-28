@@ -1,0 +1,28 @@
+sudo su = para entrar en modo root
+connect -p portal-antares.adminml.com 
+remove -user
+
+token para git linux = 3b30e41a15d9c4e6a6454cc02eaeb4f4b5a3be55
+
+Para verificar el estado del servicio, escriba lo siguiente:
+>>sudo systemctl status mongodb
+
+Puede detener el servidor en cualquier momento escribiendo lo siguiente:
+>>sudo systemctl stop mongodb
+
+Para iniciar el servidor cuando esté detenido, escriba lo siguiente:
+>>sudo systemctl start mongodb
+
+También puede reiniciar el servidor con un solo comando:
+>>sudo systemctl restart mongodb
+
+Por defecto, MongoDB se configura para iniciarse de forma automática con el servidor. Si desea desactivar el inicio automático, escriba lo siguiente:
+>>sudo systemctl disable mongodb
+
+Volver a habilitarlo es igualmente sencillo. Para hacerlo, utilice lo siguiente:
+>>sudo systemctl enable mongodb
+
+--Ajustar el firewall (opcional)--
+
+Para permitir el acceso a MongoDB en su puerto predeterminado 27017 desde cualquier parte, podría utilizar >>sudo ufw allow 27017.
+
