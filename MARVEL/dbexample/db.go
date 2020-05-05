@@ -1,24 +1,24 @@
 package main
 
 import (
-	"bufio"        // Leer líneas incluso si tienen espacios
-	"database/sql" // Interactuar con bases de datos
-	"fmt"          // Imprimir mensajes y esas cosas
-	"os"           // El búfer, para leer desde la terminal con os.Stdin
+	"bufio"
+	"database/sql"
+	"fmt"
+	"os"
 
-	_ "github.com/go-sql-driver/mysql" // La librería que nos permite conectar a MySQL
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Contacto struct {
-	Nombre, Direccion, CorreoElectronico string
-	Id                                   int
+	nombre, usuario, contraseña string
+	idusuarios                  int
 }
 
 func obtenerBaseDeDatos() (db *sql.DB, e error) {
 	usuario := "root"
-	pass := ""
+	pass := "12345"
 	host := "tcp(127.0.0.1:3306)"
-	nombreBaseDeDatos := "agenda"
+	nombreBaseDeDatos := "prueba"
 	// Debe tener la forma usuario:contraseña@protocolo(host:puerto)/nombreBaseDeDatos
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@%s/%s", usuario, pass, host, nombreBaseDeDatos))
 	if err != nil {
@@ -28,16 +28,6 @@ func obtenerBaseDeDatos() (db *sql.DB, e error) {
 }
 
 func main() {
-	creditos := `==========================================================
-	                CRUD de MySQL y GO
-                                           
-                                __ __          __         
-	.-----.---.-.----.-----|__|  |--.--.--|  |_.-----.
-	|  _  |  _  |   _|-- __|  |  _  |  |  |   _|  -__|
-	|   __|___._|__| |_____|__|_____|___  |____|_____|
-	|__|                            |_____|           
-==========================================================`
-	fmt.Println(creditos)
 	menu := `¿Qué deseas hacer?
 [1] -- Insertar
 [2] -- Mostrar
@@ -55,15 +45,15 @@ func main() {
 		case 1:
 			fmt.Println("Ingresa el nombre:")
 			if scanner.Scan() {
-				c.Nombre = scanner.Text()
+				c.nombre = scanner.Text()
 			}
-			fmt.Println("Ingresa la dirección:")
+			fmt.Println("Ingresa el usuario:")
 			if scanner.Scan() {
-				c.Direccion = scanner.Text()
+				c.usuario = scanner.Text()
 			}
-			fmt.Println("Ingresa el correo electrónico:")
+			fmt.Println("Ingresa la contraseña:")
 			if scanner.Scan() {
-				c.CorreoElectronico = scanner.Text()
+				c.contraseña = scanner.Text()
 			}
 			err := insertar(c)
 			if err != nil {
@@ -78,26 +68,26 @@ func main() {
 			} else {
 				for _, contacto := range contactos {
 					fmt.Println("====================")
-					fmt.Printf("Id: %d\n", contacto.Id)
-					fmt.Printf("Nombre: %s\n", contacto.Nombre)
-					fmt.Printf("Dirección: %s\n", contacto.Direccion)
-					fmt.Printf("E-mail: %s\n", contacto.CorreoElectronico)
+					fmt.Printf("Id: %d\n", contacto.idusuarios)
+					fmt.Printf("Nombre: %s\n", contacto.nombre)
+					fmt.Printf("Usuario: %s\n", contacto.usuario)
+					fmt.Printf("Contraseña: %s\n", contacto.contraseña)
 				}
 			}
 		case 3:
 			fmt.Println("Ingresa el id:")
-			fmt.Scanln(&c.Id)
+			fmt.Scanln(&c.idusuarios)
 			fmt.Println("Ingresa el nuevo nombre:")
 			if scanner.Scan() {
-				c.Nombre = scanner.Text()
+				c.nombre = scanner.Text()
 			}
-			fmt.Println("Ingresa la nueva dirección:")
+			fmt.Println("Ingresa el nueva usuario:")
 			if scanner.Scan() {
-				c.Direccion = scanner.Text()
+				c.usuario = scanner.Text()
 			}
-			fmt.Println("Ingresa el nuevo correo electrónico:")
+			fmt.Println("Ingresa la nueva contraseña:")
 			if scanner.Scan() {
-				c.CorreoElectronico = scanner.Text()
+				c.contraseña = scanner.Text()
 			}
 			err := actualizar(c)
 			if err != nil {
@@ -107,7 +97,7 @@ func main() {
 			}
 		case 4:
 			fmt.Println("Ingresa el ID del contacto que deseas eliminar:")
-			fmt.Scanln(&c.Id)
+			fmt.Scanln(&c.idusuarios)
 			err := eliminar(c)
 			if err != nil {
 				fmt.Printf("Error eliminando: %v", err)
@@ -125,13 +115,13 @@ func eliminar(c Contacto) error {
 	}
 	defer db.Close()
 
-	sentenciaPreparada, err := db.Prepare("DELETE FROM agenda WHERE id = ?")
+	sentenciaPreparada, err := db.Prepare("DELETE FROM usuarios WHERE idusuarios = ?")
 	if err != nil {
 		return err
 	}
 	defer sentenciaPreparada.Close()
 
-	_, err = sentenciaPreparada.Exec(c.Id)
+	_, err = sentenciaPreparada.Exec(c.idusuarios)
 	if err != nil {
 		return err
 	}
@@ -146,13 +136,13 @@ func insertar(c Contacto) (e error) {
 	defer db.Close()
 
 	// Preparamos para prevenir inyecciones SQL
-	sentenciaPreparada, err := db.Prepare("INSERT INTO agenda (nombre, direccion, correo_electronico) VALUES(?, ?, ?)")
+	sentenciaPreparada, err := db.Prepare("INSERT INTO usuarios (nombre, usuario, contraseña) VALUES(?, ?, ?)")
 	if err != nil {
 		return err
 	}
 	defer sentenciaPreparada.Close()
 	// Ejecutar sentencia, un valor por cada '?'
-	_, err = sentenciaPreparada.Exec(c.Nombre, c.Direccion, c.CorreoElectronico)
+	_, err = sentenciaPreparada.Exec(c.nombre, c.usuario, c.contraseña)
 	if err != nil {
 		return err
 	}
@@ -166,7 +156,7 @@ func obtenerContactos() ([]Contacto, error) {
 		return nil, err
 	}
 	defer db.Close()
-	filas, err := db.Query("SELECT id, nombre, direccion, correo_electronico FROM agenda")
+	filas, err := db.Query("SELECT idusuarios, nombre, usuario, contraseña FROM usuarios")
 
 	if err != nil {
 		return nil, err
@@ -179,7 +169,7 @@ func obtenerContactos() ([]Contacto, error) {
 
 	// Recorrer todas las filas, en un "while"
 	for filas.Next() {
-		err = filas.Scan(&c.Id, &c.Nombre, &c.Direccion, &c.CorreoElectronico)
+		err = filas.Scan(&c.idusuarios, &c.nombre, &c.usuario, &c.contraseña)
 		// Al escanear puede haber un error
 		if err != nil {
 			return nil, err
@@ -198,12 +188,12 @@ func actualizar(c Contacto) error {
 	}
 	defer db.Close()
 
-	sentenciaPreparada, err := db.Prepare("UPDATE agenda SET nombre = ?, direccion = ?, correo_electronico = ? WHERE id = ?")
+	sentenciaPreparada, err := db.Prepare("UPDATE usuarios SET nombre = ?, usuario = ?, contraseña = ? WHERE idusuarios = ?")
 	if err != nil {
 		return err
 	}
 	defer sentenciaPreparada.Close()
 	// Pasar argumentos en el mismo orden que la consulta
-	_, err = sentenciaPreparada.Exec(c.Nombre, c.Direccion, c.CorreoElectronico, c.Id)
+	_, err = sentenciaPreparada.Exec(c.nombre, c.usuario, c.contraseña, c.idusuarios)
 	return err // Ya sea nil o sea un error, lo manejaremos desde donde hacemos la llamada
 }

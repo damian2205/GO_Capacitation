@@ -1,0 +1,86 @@
+						Conexion a base de datos mysql(MARIADB) con GO
+
+---Instalar mysql workbench 
+---Instalar mysql
+---Instalar docker
+---Crear una instancia con mysql desde docker
+	>>sudo docker pull mysql:latest
+
+---Una vez obtenida la instancia crearemos un contenedor
+	>>sudo docker run --name mysqlname -e MYSQL_ROOT_PASSWORD=12345 -d -p 3306:3306 mysql:latest
+
+---Miramos el contenedor que creamos con 
+	>>sudo docker ps -a
+
+---Sí el puerto esta en uso procedemos a matarlo para poder correr el contenedor, haciendo lo siguiente, miramos el puerto que lo esta ocupando, en este caso puede ser el mismo mysql, miramos con este
+	>>sudo netstat -plnut
+
+---Ahí miraremos los puertos que se estan ocupando, buscamos el 3306 y guardamos el nombre del que lo ocupa para luego hacer
+	>>sudo pkill mysqld --- O el nombre del que lo ocupe
+
+---Prodeceremos a correr el contenedor con
+	>>sudo docker container start 123456789 y seguido del espacio ponemos el id en numeros del contenedor creado.
+
+---Ahora procedemor a crear un server en mysqlworbench, solo ponemos el nombre del server y la contraseña del root asignado donde dice "Storeinkeychan" y listo...
+
+---Seguido creamos la base de datos con la tabla correspondiente para la prueba.
+
+---Ahora entramos a VSCODE y creamos una carpeta y allí un archivo con DB.go
+
+--En el archivo abierto iniciamos una terminal y ponemos 
+	>>dep init
+
+---Sí no se ha instalado DEP buscar el paquete meterlo en el pkg de go y instalarlo, acto seguido descargar el driver de mysql para manipurlo en go... En la pagina oficial GOLANG buscar en paquetes "SQL" y allí se encuentra todo, se busca el que diga mysql. Se descarga y se pone en la carpeta de github.com y depues e la terminal iniciada en la carpeta creada para la DB, pondemos 
+	>>go get -u github.com/go-sql-driver/mysql
+
+---Una vez instalado nos vamos al archivo GOpkg.toml y allí ponemos 
+	[[constrain]]
+	name = "github.com/go-sql-driver/mysql"
+	version = "~1.5.0"
+
+------------BIEN YA PODEMOS CODIFICAR--------------
+
+--- En el arcivo DB.go creamos una funcion y alli configuraremos la conexion.
+	1	func obtener_DB() (db *sql.DB, e err){
+	2	usuario := "root"
+	3	password := "12345"
+	4	host := "tcp(127.0.0.1:3306)"
+	5	nombreDeLaDB := "prueba"
+	// Debe tenre la forma usuario:password@host/nombreDeLaDB
+	6	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@%s/%s", usuario, password, host, nombreDeLaDB))
+	7	if err != nil{
+	8		return nil, err
+	9	}
+	10	return db, nil
+	11	}
+
+	1	Creamos la funcion y de parametros le pasamos db:ya se utilizara, *sql.DB:me va a traer todas las bases de datos, e err me dara el 			error en caso de que no encuentre o halla algo mal
+	2	Asignamos a una variable el usuario que hallamos creado en este caso "root"
+	3	Asignamos a una variable la password del usuario creado "12345"
+	4	Asignamos a una variable el host que se utilizo para la conexion del container, "tcp(127.0.0.1:3306) = localhost:3306
+	5	Asignamos a una variable el nombre de la base de datos que queremos obtener
+	6	Llamamos a la db y el error y seran el metodo que traera la base de datos que asignemos... sql.Open pasa dos parametros, "mysql" del 			driver instalado y "%s:%s@%s/%s" de la configuracion dada.
+	10	Se retorna la db obtenida y el null en caso de que hallá.
+
+
+	1	func main(){
+	2	db, err := obtener_DB()
+	3	if err != nil{
+	4		fmt.Println("Erro a obtener la base de datos")
+	5		return
+	6	}
+	7	defer db.Close()
+	8	err db.Ping()
+	9	err != nil{
+	10		fmt.Println("No se pudo conectar a la base de datos")
+	11		return
+	12	}
+	13	fmt.Println("Conectado con exito")
+
+	2	db, err recibiran los datos de la funcion creada con aterioridad
+	7	db.Close() se difiere la la db y se cierra la db y dara vueltas hasta que sea conveniente ser llamada
+	8	db.Ping() verifica que la base de datos siga activa.
+
+	---Ya estaria conectada lista para crear el crud.
+
+

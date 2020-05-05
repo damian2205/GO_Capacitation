@@ -11,15 +11,15 @@ revisar los servicios de cada puerto
 >>sudo netstat -plnut
 
 matar servicios de dicho puerto
->>sudo kill -9 `sudo lsof -t -i:9001`
->>sudo kill -9 $(sudo lsof -t -i:9001)
->>sudo netstat -pna | grep 3000
+>>sudo kill -9 `sudo lsof -t -i:3306`
+>>sudo kill -9 $(sudo lsof -t -i:3306)
+>>sudo netstat -pna | grep 3306
 >>sudo apt install net-tools
 >>sudo netstat -laputen | grep ':3306 *LISTEN'
 
 
 >>systemctl list-unit-files --type service -all
->>pkill mysqld
+>>sudo pkill mysqld
 
 
 [[constraint]] name = "github.com/gin-gonic/gin" version = "~1.4.0"

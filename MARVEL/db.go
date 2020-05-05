@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -22,7 +24,7 @@ func obtenerBaseDeDatos() (db *sql.DB, e error) {
 
 type Contacto struct {
 	nombre, usuario, contraseña string
-	ID                          int
+	idusurios                   int
 }
 
 func main() {
@@ -31,39 +33,54 @@ func main() {
 		fmt.Printf("Error obteniendo base de datos: %v", err)
 		return
 	}
-	// Terminar conexión al terminar función
+
 	defer db.Close()
 
-	// Ahora vemos si tenemos conexión
 	err = db.Ping()
+
 	if err != nil {
 		fmt.Printf("Error conectando: %v", err)
 		return
 	}
-	// Listo, aquí ya podemos usar a db!
-	fmt.Printf("Conectado correctamente")
+	fmt.Printf("Conectado correctamente\n")
 
-	c := Contacto{
-		nombre:     "benito",
-		usuario:    "toca melas",
-		contraseña: "12345",
+	// Llamado funcion para obtener los datos de la DB
+	contactos, err := obtenerContactos()
+	if err != nil {
+		fmt.Printf("Error obteniendo contactos: %v", err)
+		return
+	}
+	for _, contacto := range contactos {
+		fmt.Printf("\n%v\n", contacto)
+	}
+
+	// c := Contacto{
+	// 	nombre:     _nombre,
+	// 	usuario:    _usuario,
+	// 	contraseña: _contraseña,
+	// }
+
+	var c Contacto
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Println("Ingresa el nombre:")
+	if scanner.Scan() {
+		c.nombre = scanner.Text()
+	}
+	fmt.Println("Ingresa el usuario:")
+	if scanner.Scan() {
+		c.usuario = scanner.Text()
+	}
+	fmt.Println("Ingresa la contraseña:")
+	if scanner.Scan() {
+		c.contraseña = scanner.Text()
 	}
 
 	_err := insertar(c)
 	if _err != nil {
-		fmt.Println("Error insertando: %v", _err)
+		fmt.Printf("Error insertando: %v", _err)
 	} else {
-		fmt.Println("Insertado con exito")
+		fmt.Println("Insertado correctamente")
 	}
-
-	// contactos, err := obtenerContactos()
-	// if err != nil {
-	// 	fmt.Printf("Error obteniendo contactos: %v", err)
-	// 	return
-	// }
-	// for _, contacto := range contactos {
-	// 	fmt.Printf("%v\n", contacto)
-	// }
 }
 
 func insertar(c Contacto) (e error) {
@@ -73,7 +90,7 @@ func insertar(c Contacto) (e error) {
 	}
 	defer db.Close()
 
-	sentenciaPreparada, err := db.Prepare("Insert to into prueba (nombre, usuario, contraseña) VALUES(?,?,?)")
+	sentenciaPreparada, err := db.Prepare("INSERT INTO usuarios (nombre, usuario, contraseña) VALUES(?, ?, ?)")
 	if err != nil {
 		return err
 	}
@@ -86,34 +103,34 @@ func insertar(c Contacto) (e error) {
 	return nil
 }
 
-// func obtenerContactos() ([]Contacto, error) {
-// 	contactos := []Contacto{}
-// 	db, err := obtenerBaseDeDatos()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer db.Close()
-// 	filas, err := db.Query("SELECT id, nombre, usuario, contraseña, contraseña_ FROM prueba")
+func obtenerContactos() ([]Contacto, error) {
+	contactos := []Contacto{}
+	db, err := obtenerBaseDeDatos()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+	filas, err := db.Query("SELECT idusuarios, nombre, usuario, contraseña FROM usuarios")
 
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	// Si llegamos aquí, significa que no ocurrió ningún error
-// 	defer filas.Close()
+	if err != nil {
+		return nil, err
+	}
+	// Si llegamos aquí, significa que no ocurrió ningún error
+	defer filas.Close()
 
-// 	// Aquí vamos a "mapear" lo que traiga la consulta en el while de más abajo
-// 	var c Contacto
+	// Aquí vamos a "mapear" lo que traiga la consulta en el while de más abajo
+	var c Contacto
 
-// 	// Recorrer todas las filas, en un "while"
-// 	for filas.Next() {
-// 		err = filas.Scan(&c.ID, &c.nombre, &c.usuario, &c.contraseña, &c.contraseña_)
-// 		// Al escanear puede haber un error
-// 		if err != nil {
-// 			return nil, err
-// 		}
-// 		// Y si no, entonces agregamos lo leído al arreglo
-// 		contactos = append(contactos, c)
-// 	}
-// 	// Vacío o no, regresamos el arreglo de contactos
-// 	return contactos, nil
-// }
+	// Recorrer todas las filas, en un "while"
+	for filas.Next() {
+		err = filas.Scan(&c.idusurios, &c.nombre, &c.usuario, &c.contraseña)
+		// Al escanear puede haber un error
+		if err != nil {
+			return nil, err
+		}
+		// Y si no, entonces agregamos lo leído al arreglo
+		contactos = append(contactos, c)
+	}
+	// Vacío o no, regresamos el arreglo de contactos
+	return contactos, nil
+}
