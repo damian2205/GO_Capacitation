@@ -33,5 +33,5 @@ func main() {
 	r.GET("/", Home_pagina)
 	r.GET("/ping", Ping)
 	r.POST("/", Post_message)
-	r.Run("127.0.0.1:8000") // listen and server :8080
+	r.Run("127.0.0.1:8080") // listen and server :8080
 }

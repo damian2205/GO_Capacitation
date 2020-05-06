@@ -2,9 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -12,8 +10,10 @@ import (
 )
 
 type Contacto struct {
-	nombre, usuario, contraseña string
-	idusurios                   int
+	idusurios  string `json:"id, omitempty"`
+	nombre     string `json:"nombre, omitempty"`
+	usuario    string `json:"usuario, omitempty"`
+	contraseña string `json:"contraseña, omitempty"`
 }
 
 func ObtenerDB() (db *sql.DB, e error) {
@@ -33,7 +33,9 @@ func Home_pagina(c *gin.Context) {
 		"title": "HEY HOLA ES EL INDEX",
 	})
 }
-func ObtenerUser(w http.ResponseWriter, r *http.Request) {
+
+func ObtenerUser(c *gin.Context) ([]Contacto, error) {
+	contactos := []Contacto{}
 	db, err := ObtenerDB()
 	if err != nil {
 		return nil, err
@@ -44,24 +46,27 @@ func ObtenerUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return nil, err
 	}
-
 	defer filas.Close()
 
-	json.NewEncoder(w).Encode(filas)
+	var a Contacto
 
-	// // var c Contacto
-
-	// for filas.Next() {
-	// 	err = filas.Scan(&c.idusurios, &c.nombre, &c.usuario, &c.contraseña)
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
-	// 	contactos = append(contactos, c)
-	// }
+	for filas.Next() {
+		err = filas.Scan(&a.idusurios, &a.nombre, &a.usuario, &a.contraseña)
+		if err != nil {
+			return nil, err
+		}
+		contactos = append(contactos, a)
+	}
 	// return contactos, nil
+	c.JSON(200, gin.H{
+		"message": string(contactos),
+	})
 }
-func CrearUser(c *gin.Context) {
 
+func CrearUser(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "HOLA CANRAL",
+	})
 }
 func main() {
 	// conexion DB
@@ -82,10 +87,10 @@ func main() {
 	fmt.Printf("Conectado correctamente\n")
 
 	// SERVER
-	r := gin.Default()
-	r.GET("/", Home_pagina)
-	r.GET("/users", ObtenerUser)
-	r.POST("/create", CrearUser)
-	r.Run("127.0.0.1:8000")
+	router := gin.Default()
+	router.GET("/", Home_pagina)
+	router.GET("/users", ObtenerUser)
+	router.GET("/create", CrearUser)
+	router.Run("127.0.0.1:8000")
 
 }
