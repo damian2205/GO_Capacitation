@@ -1,4 +1,4 @@
-package main
+package repo
 
 import (
 	"bufio"
@@ -10,11 +10,13 @@ import (
 )
 
 type Contacto struct {
-	idusurios                   int
-	nombre, usuario, contraseña string
+	idusurios  int    //`json:"idusarios, omitempty"`
+	nombre     string //`json:"nombre, omitempty"`
+	usuario    string //`json:"usuario, omitempty"`
+	contraseña string //`json:"contraseña, omitempty"`
 }
 
-func main() {
+func Menu() {
 	db, err := ODB.ObtenerBaseDeDatos()
 	if err != nil {
 		fmt.Printf("Error obteniendo base de datos: %v", err)
@@ -48,12 +50,15 @@ func main() {
 		switch eleccion {
 		case 1:
 			// Llamado funcion para obtener los datos de la DB
-			contactos, err := obtenerContactos()
+			contactos, err := ObtenerContactos()
 			if err != nil {
 				fmt.Printf("Error obteniendo contactos: %v", err)
 				return
 			}
 			for _, contacto := range contactos {
+				if err != nil {
+					fmt.Println("erro con el json, %v", err)
+				}
 				fmt.Printf("\n%v\n\n", contacto)
 			}
 
@@ -113,86 +118,4 @@ func main() {
 		}
 	}
 
-}
-
-func obtenerContactos() ([]Contacto, error) {
-	contactos := []Contacto{}
-	db, err := ODB.ObtenerBaseDeDatos()
-	if err != nil {
-		return nil, err
-	}
-	defer db.Close()
-	filas, err := db.Query("SELECT idusuarios, nombre, usuario, contraseña FROM usuarios")
-
-	if err != nil {
-		return nil, err
-	}
-	defer filas.Close()
-
-	var c Contacto
-
-	for filas.Next() {
-		err = filas.Scan(&c.idusurios, &c.nombre, &c.usuario, &c.contraseña)
-		if err != nil {
-			return nil, err
-		}
-		contactos = append(contactos, c)
-	}
-	return contactos, nil
-}
-
-func InsertarUser(c Contacto) (e error) {
-	db, err := ODB.ObtenerBaseDeDatos()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
-	sentenciaPreparada, err := db.Prepare("INSERT INTO usuarios (nombre, usuario, contraseña) VALUES(?, ?, ?)")
-	if err != nil {
-		return err
-	}
-	defer sentenciaPreparada.Close()
-
-	_, err = sentenciaPreparada.Exec(c.nombre, c.usuario, c.contraseña)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func EliminarUser(c Contacto) error {
-	db, err := ODB.ObtenerBaseDeDatos()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
-	sentenciaPreparada, err := db.Prepare("DELETE FROM usuarios WHERE idusuarios = ?")
-	if err != nil {
-		return err
-	}
-	defer sentenciaPreparada.Close()
-
-	_, err = sentenciaPreparada.Exec(c.idusurios)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func ActualizarUser(c Contacto) error {
-	db, err := ODB.ObtenerBaseDeDatos()
-	if err != nil {
-		return err
-	}
-	defer db.Close()
-
-	sentenciaPreparada, err := db.Prepare("UPDATE usuarios SET nombre = ?, usuario = ?, contraseña = ? WHERE idusuarios = ?")
-	if err != nil {
-		return err
-	}
-	defer sentenciaPreparada.Close()
-	_, err = sentenciaPreparada.Exec(c.nombre, c.usuario, c.contraseña, c.idusurios)
-	return err
 }
