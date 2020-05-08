@@ -1,24 +1,45 @@
 package repo
 
 import (
+	"log"
+
 	ODB "github.com/damian2205/GO_Capacitation/MARVEL/db"
 )
 
-func ObtenerContactos() ([]Contacto, error) {
+// type Contacto struct {
+// 	IDusurios  int    `json:"idusarios"`
+// 	Nombre     string `json:"nombre"`
+// 	Usuario    string `json:"usuario"`
+// 	Contraseña string `json:"contraseña"`
+// }
+
+type ModelContacto struct {
+	IDusurios  int
+	Nombre     string
+	Usuario    string
+	Contraseña string
+}
+
+type ResponseDTO struct {
+	Message string `json:"message"`
+	Data    string `json:"data"`
+}
+
+func ObtenerUser() ([]Contacto, error) {
 	contactos := []Contacto{}
 	db, err := ODB.ObtenerBaseDeDatos()
 	if err != nil {
 		return nil, err
 	}
 	defer db.Close()
-	filas, err := db.Query("SELECT idusuarios, nombre, usuario, contraseña FROM usuarios")
+	filas, err := db.Query("SELECT * FROM usuarios")
 	if err != nil {
 		return nil, err
 	}
 	var c Contacto
 
 	for filas.Next() {
-		err = filas.Scan(&c.idusurios, &c.nombre, &c.usuario, &c.contraseña)
+		err = filas.Scan(&c.IDusurios, &c.Nombre, &c.Usuario, &c.Contraseña)
 		if err != nil {
 			return nil, err
 		}
@@ -29,7 +50,7 @@ func ObtenerContactos() ([]Contacto, error) {
 	return contactos, nil
 }
 
-func InsertarUser(c Contacto) (e error) {
+func InsertarUser(d Contacto) (e error) {
 	db, err := ODB.ObtenerBaseDeDatos()
 	if err != nil {
 		return err
@@ -42,10 +63,15 @@ func InsertarUser(c Contacto) (e error) {
 	}
 	defer sentenciaPreparada.Close()
 
-	_, err = sentenciaPreparada.Exec(c.nombre, c.usuario, c.contraseña)
-	if err != nil {
-		return err
-	}
+	// _, err = sentenciaPreparada.Exec(d.Nombre, d.Usuario, d.Contraseña)
+	// if err != nil {
+	// 	return err
+	// }
+
+	userModel := ModelContacto{Nombre: d.Nombre, Usuario: d.Usuario, Contraseña: d.Contraseña}
+	log.Println("OKAY SE CREO", userModel)
+	// return ResponseDTO{Message: "se creo", Data: ""}
+
 	return nil
 }
 
@@ -62,7 +88,7 @@ func EliminarUser(c Contacto) error {
 	}
 	defer sentenciaPreparada.Close()
 
-	_, err = sentenciaPreparada.Exec(c.idusurios)
+	_, err = sentenciaPreparada.Exec(c.IDusurios)
 	if err != nil {
 		return err
 	}
@@ -81,6 +107,6 @@ func ActualizarUser(c Contacto) error {
 		return err
 	}
 	defer sentenciaPreparada.Close()
-	_, err = sentenciaPreparada.Exec(c.nombre, c.usuario, c.contraseña, c.idusurios)
+	_, err = sentenciaPreparada.Exec(c.Nombre, c.Usuario, c.Contraseña, c.IDusurios)
 	return err
 }

@@ -10,10 +10,10 @@ import (
 )
 
 type Contacto struct {
-	idusurios  int    //`json:"idusarios, omitempty"`
-	nombre     string //`json:"nombre, omitempty"`
-	usuario    string //`json:"usuario, omitempty"`
-	contraseña string //`json:"contraseña, omitempty"`
+	IDusurios  int    `json:"idusarios, omitempty"`
+	Nombre     string `json:"nombre, omitempty"`
+	Usuario    string `json:"usuario, omitempty"`
+	Contraseña string `json:"contraseña, omitempty"`
 }
 
 func Menu() {
@@ -50,14 +50,14 @@ func Menu() {
 		switch eleccion {
 		case 1:
 			// Llamado funcion para obtener los datos de la DB
-			contactos, err := ObtenerContactos()
+			contactos, err := ObtenerUser()
 			if err != nil {
 				fmt.Printf("Error obteniendo contactos: %v", err)
 				return
 			}
 			for _, contacto := range contactos {
 				if err != nil {
-					fmt.Println("erro con el json, %v", err)
+					fmt.Printf("erro  %v", err)
 				}
 				fmt.Printf("\n%v\n\n", contacto)
 			}
@@ -66,15 +66,15 @@ func Menu() {
 			//Insertar usuario
 			fmt.Println("Ingresa el nombre:")
 			if scanner.Scan() {
-				c.nombre = scanner.Text()
+				c.Nombre = scanner.Text()
 			}
 			fmt.Println("Ingresa el usuario:")
 			if scanner.Scan() {
-				c.usuario = scanner.Text()
+				c.Usuario = scanner.Text()
 			}
 			fmt.Println("Ingresa la contraseña:")
 			if scanner.Scan() {
-				c.contraseña = scanner.Text()
+				c.Contraseña = scanner.Text()
 			}
 			_err := InsertarUser(c)
 			if _err != nil {
@@ -86,7 +86,7 @@ func Menu() {
 		case 3:
 			//Eliminar Usuario
 			fmt.Println("Ingresa el ID del usuario que deseas eliminar:")
-			fmt.Scanln(&c.idusurios)
+			fmt.Scanln(&c.IDusurios)
 			err_ := EliminarUser(c)
 			if err_ != nil {
 				fmt.Printf("Error eliminando: %v", err_)
@@ -96,18 +96,18 @@ func Menu() {
 
 		case 4:
 			fmt.Println("Ingresa el id:")
-			fmt.Scanln(&c.idusurios)
+			fmt.Scanln(&c.IDusurios)
 			fmt.Println("Ingresa el nuevo nombre:")
 			if scanner.Scan() {
-				c.nombre = scanner.Text()
+				c.Nombre = scanner.Text()
 			}
 			fmt.Println("Ingresa el nuevo usuario:")
 			if scanner.Scan() {
-				c.usuario = scanner.Text()
+				c.Usuario = scanner.Text()
 			}
 			fmt.Println("Ingresa la nueva contraseña:")
 			if scanner.Scan() {
-				c.contraseña = scanner.Text()
+				c.Contraseña = scanner.Text()
 			}
 			err := ActualizarUser(c)
 			if err != nil {
