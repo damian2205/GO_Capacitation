@@ -1,4 +1,4 @@
-package app
+package controller
 
 import (
 	"fmt"
@@ -6,7 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	OB "github.com/damian2205/GO_Capacitation/MARVEL/repo"
+	"github.com/damian2205/GO_Capacitation/MARVEL/dto"
+	OB "github.com/damian2205/GO_Capacitation/MARVEL/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,18 +32,40 @@ func ObtenerDatos(c *gin.Context) {
 }
 
 func InsertarDatos(c *gin.Context) {
-	var d Contacto
-	err := c.BindJSON(&d)
+	var User dto.Contacto
+	err := c.ShouldBindJSON(&User)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
 	}
-	log.Println("User dto", d)
-	response := OB.InsertarUser(d)
-	// c.JSON(200, gin.H{"datos": "DB",
-	// 	"message":   "Creado correctamente",
-	// 	"resultado": todo.IDusurios,
-	// })
-	c.JSON(http.StatusOK, gin.H{"responseContent": response})
+	log.Println("Usuario ingresado", User)
+	// OB.InsertarUser(User)
+	response := OB.InsertarUser(User)
+	c.JSON(http.StatusOK, gin.H{"Respuesta de ingreso": response})
+}
+
+func EliminarDatos(c *gin.Context) {
+	var IDuser dto.Contacto
+	err := c.ShouldBindJSON(&IDuser)
+	if err != nil {
+		c.Status(http.StatusBadRequest)
+	}
+	log.Println("Usuario iliminado", IDuser.IDusuarios)
+	// OB.InsertarUser(ID)
+	response := OB.EliminarUser(IDuser)
+	c.JSON(http.StatusOK, gin.H{"Respuesta de eliminacion": response})
+}
+
+func ActualizarDatos(c *gin.Context) {
+	var Update dto.Contacto
+	err := c.ShouldBindJSON(&Update)
+	if err != nil {
+		c.Status(http.StatusBadRequest)
+	}
+	// log.Println("Usuario actualizado", Update)
+	// OB.InsertarUser(Userr)
+	response := OB.ActualizarUser(Update)
+	c.JSON(http.StatusOK, gin.H{"Respuesta de update": response})
+
 }
 
 func Ping(c *gin.Context) {
