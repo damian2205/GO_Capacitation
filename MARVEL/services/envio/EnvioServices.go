@@ -1,25 +1,37 @@
 package repo
 
 import (
+	// "log"
+
 	"log"
 
-	ODB "github.com/damian2205/GO_Capacitation/MARVEL/db"
-	"github.com/damian2205/GO_Capacitation/MARVEL/dto"
+	"github.com/damian2205/GO_Capacitation/MARVEL/db"
 	"github.com/damian2205/GO_Capacitation/MARVEL/models"
+	"github.com/damian2205/GO_Capacitation/MARVEL/services"
+
+	"github.com/damian2205/GO_Capacitation/MARVEL/dto"
 )
 
-func ObtenerUser() ([]models.ModelContacto, error) {
-	contactos := []models.ModelContacto{}
-	db, err := ODB.ObtenerBaseDeDatos()
+type envioServices struct {
+	interfaceDB db.DBClient
+}
+
+func NewEnvioServices(db db.DBClient) services.EnvioServices {
+	return &envioServices{db}
+}
+
+func (dba *envioServices) ObtenerUser() (datos []dto.Contacto, e error) {
+	contactos := []dto.Contacto{}
+	db, err := dba.interfaceDB.NewDBBuilder()
 	if err != nil {
-		return nil, err
+		log.Printf("ERROR AL TRAER LA DB, %v", err)
 	}
 	defer db.Close()
 	filas, err := db.Query("SELECT IDusuarios, Nombre, Usuario, Contraseña FROM usuarios")
 	if err != nil {
 		return nil, err
 	}
-	var c models.ModelContacto
+	var c dto.Contacto
 
 	for filas.Next() {
 		err = filas.Scan(&c.IDusuarios, &c.Nombre, &c.Usuario, &c.Contraseña)
@@ -33,11 +45,11 @@ func ObtenerUser() ([]models.ModelContacto, error) {
 	return contactos, nil
 }
 
-func InsertarUser(d dto.Contacto) (e error) {
+func (dba *envioServices) InsertarUser(d dto.Contacto) (e error) {
 	UserModel := models.ModelContacto{Nombre: d.Nombre, Usuario: d.Usuario, Contraseña: d.Contraseña}
-	db, err := ODB.ObtenerBaseDeDatos()
+	db, err := dba.interfaceDB.NewDBBuilder()
 	if err != nil {
-		return err
+		log.Printf("ERROR AL TRAER LA DB, %v", err)
 	}
 	defer db.Close()
 
@@ -57,11 +69,11 @@ func InsertarUser(d dto.Contacto) (e error) {
 
 }
 
-func EliminarUser(d dto.Contacto) error {
+func (dba *envioServices) EliminarUser(d dto.Contacto) (e error) {
 	IDuser := models.ModelContacto{IDusuarios: d.IDusuarios, Nombre: d.Nombre, Usuario: d.Usuario, Contraseña: d.Contraseña}
-	db, err := ODB.ObtenerBaseDeDatos()
+	db, err := dba.interfaceDB.NewDBBuilder()
 	if err != nil {
-		return err
+		log.Printf("ERROR AL TRAER LA DB, %v", err)
 	}
 	defer db.Close()
 
@@ -70,7 +82,7 @@ func EliminarUser(d dto.Contacto) error {
 		return err
 	}
 	defer sentenciaPreparada.Close()
-	// log.Printf("User eliminado{ id:%b, name:%s, user:%s, pass:%s }", IDuser.IDusuarios, IDuser.Nombre, IDuser.Usuario, IDuser.Contraseña)
+	log.Printf("User eliminado{ id:%b, name:%s, user:%s, pass:%s }", IDuser.IDusuarios, IDuser.Nombre, IDuser.Usuario, IDuser.Contraseña)
 
 	_, err = sentenciaPreparada.Exec(IDuser.IDusuarios)
 	if err != nil {
@@ -79,9 +91,9 @@ func EliminarUser(d dto.Contacto) error {
 	return nil
 }
 
-func ActualizarUser(d dto.Contacto) error {
+func (dba *envioServices) ActualizarUser(d dto.Contacto) (e error) {
 	User := models.ModelContacto{IDusuarios: d.IDusuarios, Nombre: d.Nombre, Usuario: d.Usuario, Contraseña: d.Contraseña}
-	db, err := ODB.ObtenerBaseDeDatos()
+	db, err := dba.interfaceDB.NewDBBuilder()
 	if err != nil {
 		return err
 	}
@@ -94,6 +106,6 @@ func ActualizarUser(d dto.Contacto) error {
 	defer sentenciaPreparada.Close()
 	log.Printf("Ususario acualizado: %b, %s, %s, %s", User.IDusuarios, User.Nombre, User.Usuario, User.Contraseña)
 	// _, err = sentenciaPreparada.Exec(User.IDusuarios)
-	_, err = sentenciaPreparada.Exec(User.IDusuarios, User.Nombre, User.Usuario, User.Contraseña)
+	_, err = sentenciaPreparada.Exec(User.Nombre, User.Usuario, User.Contraseña, User.IDusuarios)
 	return nil
 }
