@@ -9,8 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// var router *gin.Engine
-
 //Variable para saber si se encuentra en modo de testeo
 var TestingMode bool
 
