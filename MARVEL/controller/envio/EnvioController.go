@@ -5,13 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	// "log"
-	// "net/http"
-
 	"github.com/damian2205/GO_Capacitation/MARVEL/controller"
 	"github.com/damian2205/GO_Capacitation/MARVEL/dto"
-
-	// "github.com/damian2205/GO_Capacitation/MARVEL/dto"
 	"github.com/damian2205/GO_Capacitation/MARVEL/services"
 	"github.com/gin-gonic/gin"
 )
@@ -24,7 +19,7 @@ func NewEnvioController(s services.EnvioServices) controller.EnvioController {
 	return &envioController{s}
 }
 
-func (s *envioController) ObtenerDatos(c *gin.Context) {
+func (s *envioController) ObtenerUser(c *gin.Context) {
 	datos, err := s.envioS.ObtenerUser()
 	if err != nil {
 		fmt.Printf("Error obteniendo contactos: %v", err)
@@ -33,7 +28,7 @@ func (s *envioController) ObtenerDatos(c *gin.Context) {
 	c.JSON(200, gin.H{"datos": datos})
 }
 
-func (s *envioController) InsertarDatos(c *gin.Context) {
+func (s *envioController) InsertarUser(c *gin.Context) {
 	var User dto.Contacto
 	err := c.ShouldBindJSON(&User)
 	if err != nil {
@@ -45,7 +40,7 @@ func (s *envioController) InsertarDatos(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Respuesta de ingreso": response})
 }
 
-func (s *envioController) EliminarDatos(c *gin.Context) {
+func (s *envioController) EliminarUser(c *gin.Context) {
 	var IDuser dto.Contacto
 	err := c.ShouldBindJSON(&IDuser)
 	if err != nil {
@@ -57,7 +52,7 @@ func (s *envioController) EliminarDatos(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Respuesta de eliminacion": response})
 }
 
-func (s *envioController) ActualizarDatos(c *gin.Context) {
+func (s *envioController) ActualizarUser(c *gin.Context) {
 	var Update dto.Contacto
 	err := c.ShouldBindJSON(&Update)
 	if err != nil {

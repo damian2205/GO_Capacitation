@@ -1,8 +1,6 @@
 package repo
 
 import (
-	// "log"
-
 	"log"
 
 	"github.com/damian2205/GO_Capacitation/MARVEL/db"

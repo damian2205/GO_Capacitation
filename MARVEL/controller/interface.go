@@ -3,8 +3,8 @@ package controller
 import "github.com/gin-gonic/gin"
 
 type EnvioController interface {
-	ObtenerDatos(c *gin.Context)
-	InsertarDatos(c *gin.Context)
-	EliminarDatos(c *gin.Context)
-	ActualizarDatos(c *gin.Context)
+	ObtenerUser(c *gin.Context)
+	InsertarUser(c *gin.Context)
+	EliminarUser(c *gin.Context)
+	ActualizarUser(c *gin.Context)
 }

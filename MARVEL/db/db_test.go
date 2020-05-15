@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/damian2205/GO_Capacitation/MARVEL/db"
-	"github.com/stretchr/testify/assert"
 )
 
 type DBase struct {
@@ -39,11 +38,9 @@ func (dba *DBase) TestNewDBBuiulder(t *testing.T) {
 	}
 
 	for _, valor := range cosas {
-		db, error := dba.base.NewDBBuilder()
-		if error != nil {
-			message := fmt.Sprintf(valor.errMsg)
-			assert.EqualValues(t, message)
-			fmt.Printf("ERORRR, %v", error)
+		db, err := dba.base.NewDBBuilder()
+		if err != nil {
+			t.Error("ERORRR, %v", err)
 		}
 	}
 

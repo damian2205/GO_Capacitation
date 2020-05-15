@@ -11,10 +11,10 @@ func URL(app *Aplicacion) *gin.Engine {
 	// mainrouter := router.Group("/")
 	router.GET("/cosas", ping.Home)
 	router.GET("/ping", ping.Ping)
-	router.GET("/datos", app.envioC.ObtenerDatos)
-	router.POST("/datos", app.envioC.InsertarDatos)
-	router.DELETE("/datos", app.envioC.EliminarDatos)
-	router.PUT("/datos", app.envioC.ActualizarDatos)
+	router.GET("/datos", app.envioC.ObtenerUser)
+	router.POST("/datos", app.envioC.InsertarUser)
+	router.DELETE("/datos", app.envioC.EliminarUser)
+	router.PUT("/datos", app.envioC.ActualizarUser)
 	// router.POST("/", ping.Post_message)
 	return router
 }
