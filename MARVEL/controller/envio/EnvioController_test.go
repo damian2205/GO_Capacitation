@@ -1,4 +1,4 @@
-package controller
+package envio
 
 
 
@@ -13,21 +13,22 @@ import (
 	"github.com/golang/mock"
 	"github.com/damian2205/GO_Capacitation/MARVEL/models"
 	"github.com/damian2205/GO_Capacitation/MARVEL/dto"
-	mocks "github.com/damian2205/GO_Capacitation/MARVEL/services/mocks"
+	// mocks "github.com/damian2205/GO_Capacitation/MARVEL/services/mocks"
 	"github.com/gin-gonic/gin"
 )
 
 
 func TestObtenerUser(t *testing.T){
+
 	var contactoDto dto.Contacto
 	var modelContacto models.ModelContacto
 
 	contactoDto = mockContacto()
-	mockEnvioServices := new(mocks.EnvioServices)
+	// mockEnvioServices := new(mocks.EnvioServices)
 
-	mockEnvioServices.On("ObtenerUser", contactoDto).Return(contactoDto, error)
+	// mockEnvioServices.On("InsertarUser", contactoDto).Return(contactoDto, error).Once()
 
-	controller := NewEnvioController(mockEnvioServices)
+	// controller := NewEnvioController(mockEnvioServices)
 	b, _ := json.Marshal(contactoDto)
 
 	//Crear router
@@ -37,7 +38,7 @@ func TestObtenerUser(t *testing.T){
 
 	req, _ := http.NewRequest(http.MethodPost, "/datos", bytes.NewReader(b))
 	ctx.NewRequest = req
-	router.POST("/datos", func(c *gin.Context) {controller.ObtenerUser(ctx)})
+	router.POST("/datos", func(c *gin.Context)) //{controller.InsertarUser(ctx)})
 
 	router.ServeHTTP(res, req)
 	assert.Equal(t, http.StatusOK, res.Code)
@@ -47,7 +48,7 @@ func TestObtenerUser(t *testing.T){
 
 func mockContacto() dto.Contacto{
 	return dto.Contacto{
-	IDusuarios	"1",
+	IDusuarios	"23",
 	Nombre	"Jose de las casas",
 	Usuario	"Josesito",
 	Contraseña	"123456789",
